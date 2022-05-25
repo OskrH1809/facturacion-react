@@ -14,6 +14,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={Inicio} />
           <Route path='/cliente' component={Cliente} />
+          <Route path='/cliente-actualizar/:id' component={Cliente} />
         </Switch>
       </BrowserRouter>
     </>
