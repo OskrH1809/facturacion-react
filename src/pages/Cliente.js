@@ -1,57 +1,86 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {listaClientes} from './Server'
 import axios from '../services/axios'
 import * as  IconName  from "react-icons/fa";
-import { Tooltip } from 'bootstrap';
+import {useHistory} from 'react-router'
 
 
 const ListaCliente=()=>{
+  const history = useHistory();
+  const inicialState = {id: 3, nombreCliente: '', apellidoCliente: '', direccionCliente: '', fechaNacimiento: '', telefono:'',correoElectronico:''}
+  const [clienteForm, setClienteForm]= useState(inicialState)
   const [clientes, setClientes]= useState([])
 
   async function listadoclientes ()  {
      const a = await axios.get('cliente')
      const b = a.data.Clientes
+     console.log(b)
      setClientes(b)
     }
   
     
+    const handleInputChange =(e)=>{
+      // console.log(e.target.name)
+      // console.log(e.target.value)
 
+      setClienteForm({...clienteForm, [ e.target.name]: e.target.value})
+    }
     useEffect(()=>{
       listadoclientes();
       },[])
   
+      const handleSubmit=(e)=>{
+        e.preventDefault();
+        console.log(clienteForm.nombreCliente);
+        axios.post('cliente', {
+          nombreCliente: clienteForm.nombreCliente,
+          apellidoCliente: clienteForm.apellidoCliente,
+          direccionCliente:clienteForm.direccionCliente,
+          fechaNacimiento:clienteForm.fechaNacimiento,
+          telefono:clienteForm.telefono,
+          correoElectronico:clienteForm.correoElectronico
+        })
+        .then(function (response) {
+          console.log(response);
+          setClienteForm(inicialState)
+          history.push('/cliente')
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+
   return (
     <div className='asd'>
       <div className="container">
         <div className="row">
           <div  className="col-md-4 pt-3">
-            <form >
+            <form onSubmit={handleSubmit}>
               <div className="mb-2">
                 <label className="form-label">Nombre</label>
-                <input type="text" name="nombreCliente" minLength="2" maxLength="50"
+                <input type="text" name="nombreCliente" value={clienteForm.nombreCliente} onChange={handleInputChange} minLength="2" maxLength="50"
                   className="form-control" autoFocus required />
               </div>
               <div className="mb-2">
                 <label className="form-label">Apellido</label>
-                <input type="text" name="apellidoCliente" minLength="2" maxLength="50"
-                  className="form-control" autoFocus required />
+                <input type="text" name="apellidoCliente" value={clienteForm.apellidoCliente} onChange={handleInputChange} minLength="2" maxLength="50"
+                  className="form-control"  required />
               </div>
               <div className="mb-2">
                 <label className="form-label">Dirección</label>
-                <input type="text" name="direccionCliente" className="form-control" min="1900" max="2020" required />
+                <input type="text" name="direccionCliente" value={clienteForm.direccionCliente}  onChange={handleInputChange} className="form-control" min="1900" max="2020"  required />
               </div>
 
               <div className="mb-2">
                 <label className="form-label">Fecha de nacimiento</label>
-                <input type="date" name="fechaNacimiento" className="form-control" maxLength="100" required />
+                <input type="date" name="fechaNacimiento" value={clienteForm.fechaNacimiento} className="form-control"  onChange={handleInputChange} maxLength="100"  required />
               </div>
               <div className="mb-2">
                 <label className="form-label">Telefono</label>
-                <input type="number" name="telefono" className="form-control" maxLength="100" required />
+                <input type="number" name="telefono" className="form-control"  value={clienteForm.telefono} onChange={handleInputChange} required />
               </div>
               <div className="mb-2">
                 <label className="form-label">Correo Electronico</label>
-                <input type="email" name="correoElectronico" className="form-control" maxLength="100" required />
+                <input type="email" name="correoElectronico" className="form-control" value={clienteForm.correoElectronico}  maxLength="100" onChange={handleInputChange} required />
               </div>
               <div className="d-grid gap-2 pb-5">
                 <button type="submit" className="btn btn-block btn-primary">
