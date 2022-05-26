@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from '../services/axios'
+import swal from 'sweetalert';
 import * as  IconName from "react-icons/fa";
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router'
@@ -31,7 +32,7 @@ const ListaCliente = () => {
   }, [])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+   
     console.log(clienteForm.nombreCliente);
     
    
@@ -81,18 +82,85 @@ const ListaCliente = () => {
     axios.delete(`cliente/${clienteId}`)
       .then(function (response) {
         console.log(response);
+        setClienteForm(inicialState);
         listadoclientes();
+        history.push('/cliente')
+
+        
       })
       .catch(function (error) {
         console.log(error);
       })
   }
+
+  const confirmarActualizacion=()=>{
+    swal({
+      title: "Desea actualizar este registro?",
+      text: "Modificara los datos del registro seleccionado",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willUpdate) => {
+      if (willUpdate) {
+        handleSubmit()
+        setClienteForm(inicialState);
+        history.push('/cliente')
+        swal("El registro ha sido actualizado", {
+          icon: "success",
+        });
+      } else {
+        swal("Actualizacion cancelada");
+      }
+    });
+  }
+  const confirmarRegistrar=()=>{
+    swal({
+      title: "Desea guardar el registro?",
+      text: "Guardara el registro en el sistema",
+      icon: "info",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willCreate) => {
+      if (willCreate) {
+        handleSubmit()
+        setClienteForm(inicialState);
+        swal("El registro ha sido guardado", {
+          icon: "success",
+        });
+      } else {
+        swal("registro cancelada");
+        setClienteForm(inicialState);
+      }
+    });
+  }
+  const confirmacionBorrado=(id)=>{
+    swal({
+      title: "Desea eliminar este registro?",
+      text: "Este registro se borrara de forma permanente",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        handleDelete(id)
+        swal("El registro ha sido eliminado", {
+          icon: "success",
+        });
+      } else {
+        swal("Eliminacion cancelada");
+      }
+    });
+  }
   return (
-    <div className='asd'>
-      <div className="container">
+    <div className="container">
+                      <h1 className='text-center'>Clientes</h1>
+
         <div className="row">
           <div className="col-md-4 pt-3">
-            <form onSubmit={handleSubmit}>
+            <form >
               <div className="mb-2">
                 <label className="form-label">Nombre</label>
                 <input type="text" name="nombreCliente" value={clienteForm.nombreCliente} onChange={handleInputChange} minLength="2" maxLength="50"
@@ -122,12 +190,12 @@ const ListaCliente = () => {
               </div>
               <div className="d-grid gap-2">
                 {params.id ? (
-                  <button type="submit" className="btn btn-block btn-info">
+                  <button type="button" onClick={confirmarActualizacion}  className="btn btn-block btn-info">
                     Actualizar
                   </button>
                    
                 ) : (
-                  <button type="submit" className="btn btn-block btn-success">
+                  <button type="button" onClick={confirmarRegistrar} className="btn btn-block btn-success">
                     Registrar
                   </button>
                 )}
@@ -184,11 +252,13 @@ const ListaCliente = () => {
                         <div className="col-md-6">
                           <button onClick={() => {
                             setClienteForm(cliente)
-                            history.push(`cliente-actualizar/${cliente.id}`)
+                            history.push(`/cliente-actualizar/${cliente.id}`)
                           } }  className='btn btn-info my-2'><IconName.FaPencilAlt /></button>
                         </div>
                         <div className="col-md-6">
-                          <button onClick={() => cliente.id && handleDelete(cliente.id) } className='btn btn-danger my-2'><IconName.FaTrashAlt /></button>
+ 
+                          <button onClick={() => cliente.id && confirmacionBorrado(cliente.id) } className='btn btn-danger my-2'><IconName.FaTrashAlt /></button>
+                          
                         </div>
                       </td>
                     </tr>
@@ -201,7 +271,6 @@ const ListaCliente = () => {
           </div>
         </div>
       </div>
-    </div>
   )
 }
 
