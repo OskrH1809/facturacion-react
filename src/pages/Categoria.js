@@ -196,32 +196,32 @@ function Categoria() {
                     </div>
                     <div className="col-md-8 pt-4">
                         <table className='table table-bordered border-dark'>
-                            <thead className="thead-dark">
-                                <tr>
+                            <thead className="table-dark">
+                                <tr className='botones'>
                                     <th scope="col">id</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">descripcion</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 {categorias.map(categoria => {
                                     return (
 
                                         <tr key={categoria.id}>
 
-                                            <td>{categoria.id}</td>
-                                            <td>{categoria.nombreCategoria}</td>
+                                            <td className='botones'>{categoria.id}</td>
+                                            <td  className='botones'>{categoria.nombreCategoria}</td>
                                             <td>{categoria.descripcion}</td>
-                                            <td>
-                                                <div className="col-md-6">
+                                            <td  className='botones'>
+                                                <div className="col-auto">
                                                     <button onClick={() => {
                                                         setCategoriaForm(categoria)
                                                         console.log(categoria)
                                                         history.push(`/categoria-actualizar/${categoria.id}`)
                                                     }} className='btn btn-info my-2'><IconName.FaPencilAlt /></button>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-auto">
 
                                                     <button onClick={() => categoria.id && confirmacionBorrado(categoria.id)} className='btn btn-danger my-2'><IconName.FaTrashAlt /></button>
 

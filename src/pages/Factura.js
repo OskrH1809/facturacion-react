@@ -326,7 +326,7 @@ function Factura() {
                                     <div className=" col-md-12 pt-3 mb-3">
                                         <table className='table  border-dark table-striped-columns'>
                                             <thead className="thead-dark">
-                                                <tr>
+                                                <tr className=''>
                                                     <th scope="col">id</th>
                                                     <th scope="col">Nombre Producto</th>
                                                     <th scope="col">Cantidad</th>

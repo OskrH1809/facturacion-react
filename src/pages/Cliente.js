@@ -156,7 +156,7 @@ const ListaCliente = () => {
   }
   return (
     <div className="container">
-                      <h1 className='text-center'>Clientes</h1>
+        <h1 className='text-center pt-4'>Clientes</h1>
 
         <div className="row">
           <div className="col-md-4 pt-3">
@@ -222,8 +222,8 @@ const ListaCliente = () => {
           </div>
           <div className="col-md-8 pt-4">
             <table className='table table-bordered border-dark'>
-              <thead className="thead-dark">
-                <tr>
+              <thead className="table-dark">
+                <tr className='botones'>
                   <th scope="col">id</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Apellido</th>
@@ -249,13 +249,13 @@ const ListaCliente = () => {
                       <td>{cliente.correoElectronico}</td>
                       <td>
 
-                        <div className="col-md-6">
+                        <div className="col-auto botones">
                           <button onClick={() => {
                             setClienteForm(cliente)
                             history.push(`/cliente-actualizar/${cliente.id}`)
                           } }  className='btn btn-info my-2'><IconName.FaPencilAlt /></button>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-auto botones">
  
                           <button onClick={() => cliente.id && confirmacionBorrado(cliente.id) } className='btn btn-danger my-2'><IconName.FaTrashAlt /></button>
                           

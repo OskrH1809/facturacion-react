@@ -165,6 +165,7 @@ function Producto() {
   return (
     <div>
       <div className="container">
+            <h1 className='text-center'>Producto</h1>
           <div className="row">
           <div className="col-md-4 pt-3">
             <form >
@@ -231,9 +232,9 @@ function Producto() {
             </form>
           </div>
               <div className="col-md-8 pt-4">
-            <table className='table table-bordered border-dark'>
-              <thead className="thead-dark">
-                <tr>
+            <table className='table  table-bordered border-dark'>
+              <thead className="table-dark">
+                <tr className='botones'>
                   <th scope="col">id</th>
                   <th scope="col">Nombre Producto</th>
                   <th scope="col">Precio</th>
@@ -242,7 +243,7 @@ function Producto() {
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='botones'>
                 {productos.map(producto => {
                   return (
 
@@ -255,16 +256,18 @@ function Producto() {
                       <td>{producto.categoria__nombreCategoria}</td>
                       <td>
 
-                        <div className="col-md-6">
+                        <div className="row ">
+                        <div className="col-auto botones">
                           <button onClick={() => {
                             setProductoForm(producto)
                             history.push(`/producto-actualizar/${producto.id}`)
                           } }  className='btn btn-info my-2'><IconName.FaPencilAlt /></button>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-auto botones">
  
                           <button onClick={() => producto.id && confirmacionBorrado(producto.id) } className='btn btn-danger my-2'><IconName.FaTrashAlt /></button>
                           
+                        </div>
                         </div>
                       </td>
                     </tr>
