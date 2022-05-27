@@ -13,15 +13,16 @@ function Navbar() {
                 
             <IconContext.Provider value={{color:'#fff'}}>
                 <div className="navbar">
-                    <div>
-                    <h1  className='Encabezado'>Facturación</h1>
-                    </div>
+                    
                  <Link to='#' className="manu-bars">
                         <AiIcons.AiOutlineBars onClick={showSidebar} />
                     </Link>
 
-                    
+                    <div style={{marginLeft:'auto', marginRight:'auto'}}>
+                    <h1  className='Encabezado'>Sistema de facturación</h1>
+                    </div>
                 </div>
+                
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
                         <li className='navbar-toggle'>

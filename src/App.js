@@ -23,6 +23,7 @@ function App() {
           <Route path='/producto' component={Producto} />
           <Route path='/producto-actualizar/:id' component={Producto} />
           <Route path='/factura'  component={Factura}/>
+          <Route path='/factura-detalle/:id'  component={Factura}/>
         </Switch>
       </BrowserRouter>
     </>

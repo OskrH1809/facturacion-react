@@ -18,3 +18,12 @@
   font-size: 3rem;
 }
 
+.factura{
+  background-color:  rgb(224, 223, 223);
+  border-radius: 5px;
+
+}
+
+.pad{
+  padding-left: 10%;
+}
